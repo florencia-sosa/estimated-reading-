@@ -7,15 +7,21 @@ import { Question, questions } from './questions';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  @Input() answers!: string;
+  public questions = questions;
+  public array: any;
 
   ngOnInit(): void {
     this.calculateAllAnswersReadingTime(questions);
+    this.array = this.questions.map((item) => ({
+      ...item,
+      time: this.calculateReadingTime(item.answer),
+    }));
   }
 
   private calculateAllAnswersReadingTime = (questions: Question[]): any => {
     const answers = this.getAnswers(questions);
-    console.log(this.getAllAnswersReadingTime(answers));
+    // this.getAllAnswersReadingTime(answers)
+    // this.time = this.getAllAnswersReadingTime(answers);
   };
 
   private getAllAnswersReadingTime = (answers: string[] | null) => {
